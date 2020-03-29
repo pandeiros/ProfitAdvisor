@@ -15,16 +15,9 @@ function PA:OnInitialize()
     self.db = AceDB:New(PA_DB_NAME, DB_DEFAULTS, true)
 
     self.devmode = false;
-    -- self:InitCharDBData();
 end
 
 function PA:InitCharDBData()
-    -- if (type(self.db.char.init) ~= "boolean" or self.db.char.init == false) then
-    --     self.db.char.loginCount = 1;
-    --     self.db.char.enabled = true;
-
-    --     self.db.char.init = true;
-    -- end
 end
 
 --------------------------------------------------------------------------------------------

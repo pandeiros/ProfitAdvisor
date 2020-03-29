@@ -1,27 +1,57 @@
-
 ## Interface: 11304
-## X-Min-Interface: 11304
-## Title: |cffff7d0aProfit Advisor|r
-## Notes: Finds best deals for your goods.
-## Dependencies:
-## OptionalDependencies:
-## SavedVariables: ProfitAdvisorMinimapIcon, ProfitAdvisorDB
-## SavedVariablesPerCharacter: ProfitAdvisorCharacterDB
-## LoadOnDemand: 0
-## DefaultState: enabled
 ## Author: Pandeiros
 ## Version: 1.0
+## SavedVariables: ProfitAdvisorMinimapIcon, ProfitAdvisorDB
+## SavedVariablesPerCharacter: ProfitAdvisorCharacterDB
+## Dependencies:
+## OptionalDeps:
+## DefaultState: enabled
+## LoadOnDemand: 0
 
-embeds.xm
+## Title: |cffff7d0aProfit Advisor|r
+## Notes: Finds best deals for your goods.
+
+# ## Title-deDE: |cffff7d0aProfit Advisor|r
+# ## Title-esES: |cffff7d0aProfit Advisor|r
+# ## Title-esMX: |cffff7d0aProfit Advisor|r
+# ## Title-frFR: |cffff7d0aProfit Advisor|r
+# ## Title-itIT: |cffff7d0aProfit Advisor|r
+# ## Title-koKR: |cffff7d0aProfit Advisor|r
+# ## Title-ptBR: |cffff7d0aProfit Advisor|r
+# ## Title-ruRU: |cffff7d0aProfit Advisor|r
+# ## Title-zhCN: |cffff7d0aProfit Advisor|r
+# ## Title-zhTW: |cffff7d0aProfit Advisor|r
+# ## Notes-deDE: Finds best deals for your goods.
+# ## Notes-esES: Finds best deals for your goods.
+# ## Notes-esMX: Finds best deals for your goods.
+# ## Notes-frFR: Finds best deals for your goods.
+# ## Notes-itIT: Finds best deals for your goods.
+# ## Notes-koKR: Finds best deals for your goods.
+# ## Notes-ptBR: Finds best deals for your goods.
+# ## Notes-ruRU: Finds best deals for your goods.
+# ## Notes-zhCN: Finds best deals for your goods.
+# ## Notes-zhTW: Finds best deals for your goods.
+
+## X-Min-Interface: 11304
+## X-Credits:
+## X-Category: Professions
+## X-License: GPL v3
+## X-Localizations: enUS #, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
+# ## X-Curse-Project-ID: 123456
+# ## X-WoWI-ID: 12345
+
+embeds.xml
 
 data/Phases.lua
+data/Data.lua
 
-PA_Styles.lua
-PA_Config.lua
-PA_Data.lua
-PA_Functions.lua
-PA_Frames.lua
-PA_Options.lua
-PA_Events.lua
+locales/Locales.lua
+
+scripts/Styles.lua
+scripts/Config.lua
+scripts/Functions.lua
+scripts/Frames.lua
+scripts/Options.lua
+scripts/Events.lua
 
 ProfitAdvisor.lua
