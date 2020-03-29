@@ -1,22 +1,22 @@
 -- #TODO Copyright here
 
-----------------------------
+----------------------------------------------------------
 -- Logging helpers
-----------------------------
+----------------------------------------------------------
 
 -- Print to default tab. 
-function PA:Print(...)
+function ProfitAdvisor:Print(...)
     AceConsole:Print(DEFAULT_CHAT_FRAME, ...);
 end
 
 -- Print formatted text to default tab.
-function PA:Printf(format, ...)
+function ProfitAdvisor:Printf(format, ...)
     AceConsole:Printf(DEFAULT_CHAT_FRAME, format, ...);
 end
 
-----------------------------
+----------------------------------------------------------
 -- Misc. functions
-----------------------------
+----------------------------------------------------------
 
 -- Lua-style ternary operator.
 function ifte(condition, if_true, if_false)
@@ -53,11 +53,11 @@ function DECToHEX(decNumber)
     return hexNumber;
 end
 
-----------------------------
+----------------------------------------------------------
 -- Objects/Tables
-----------------------------
+----------------------------------------------------------
 
-function PA:CreateObject(objectOrName, ...)
+function ProfitAdvisor:CreateObject(objectOrName, ...)
     local object,name
 	local i=1
 	if type(objectorname)=="table" then
@@ -99,9 +99,9 @@ function GetAllData(t, prevData)
 	return GetAllData(index, data)
 end
 
-----------------------------
+----------------------------------------------------------
 -- WoW API helpers
-----------------------------
+----------------------------------------------------------
 
 function GetItemIDFromLink(link)
     return string.match(link, '(%d+)');

@@ -42,13 +42,16 @@
 
 embeds.xml
 
-data/Phases.lua
-data/Data.lua
+Init.lua
+Config.lua
 
 locales/Locales.lua
 
+data/Phases.lua
+data/Professions.lua
+
 scripts/Styles.lua
-scripts/Config.lua
+scripts/Data.lua
 scripts/Functions.lua
 scripts/Frames.lua
 scripts/Options.lua

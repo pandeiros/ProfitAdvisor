@@ -1,8 +1,10 @@
 -- #TODO Copyright here
 
-DEFAULT_PROFILE_NAME = "Default";
+local ProfitAdvisor = _G.ProfitAdvisor
 
-DB_DEFAULTS = {
+-- Database defaults
+PA_DB_DEFAULT_PROFILE_NAME = "Default";
+PA_DB_DEFAULTS = {
     profile = {
         style = DEFAULT_STYLE,
     },
@@ -13,30 +15,30 @@ DB_DEFAULTS = {
     }
 }
 
--- All valid professions (missing: Fishing, Herbalism and Skinning, since they only gather resources from the world)
-PROFESSIONS = {"Alchemy", "Blacksmithing", "Cooking", "Enchanting", "Engineering", "First Aid", "Mining", "Leatherworking", "Tailoring"};
+-- -- Item data variables
+-- local ItemDB = {};
+-- local ItemID = {};
+-- ProfitAdvisor.Data.ItemDB = ItemDB;
+-- ProfitAdvisor.Data.ItemID = ItemID;
 
-local ItemDB = {};
-local ItemIDs = {};
-PA.ItemDB = ItemDB;
-PA.ItemIDS = ItemIDs;
+-- function ProfitAdvisor:AddItemData(itemID, profession, minPhase, spellID, reagentFor, itemName)
+--     self.ItemDB[itemID] = {
+--         reagentFor      = reagentFor,       -- array of integers, or nil if not a reagent for anything
+--         profession      = profession,       -- name of the profession this is crafted with, empty/nil if not craftable
+--         phase           = minPhase,         -- WoW Classic phase this starts to be available
+--         spellID         = spellID,          -- spell ID that crafts this, or nil if not craftable
+--         name            = itemName,         -- (opt) string (we store a name because name from GetItemInfo is localized)
+--     }
 
-function PA:AddItemData(itemID, profession, minPhase, spellID, reagentFor, itemName)
-    self.ItemDB[itemID] = {
-        reagentFor      = reagentFor,       -- array of integers, or nil if not a reagent for anything
-        profession      = profession,       -- name of the profession this is crafted with, empty/nil if not craftable
-        phase           = minPhase,         -- WoW Classic phase this starts to be available
-        spellID         = spellID,          -- spell ID that crafts this, or nil if not craftable
-        name            = itemName,         -- (opt) string (we store a name because name from GetItemInfo is localized)
-    }
+--     reagentFor = reagentFor or {0};
+--     self.ItemIDs[itemID] = reagentFor;      -- maps item ID to all possible crafts this can be reagent for
+-- end
 
-    reagentFor = reagentFor or {0};
-    self.ItemIDs[itemID] = reagentFor;      -- maps item ID to all possible crafts this can be reagent for
-end
 
+----------------------------------------------------------
 -- ALCHEMY
 ---- Flasks
-PA:AddItemData(6359 ,   "Leatherworking",   1,  12345,  {7837}, "Firefin Snapper");
+-- ProfitAdvisor:AddItemData(6359 ,   "Leatherworking",   1,  12345,  {7837}, "Firefin Snapper");
 ---
 
 -- data["Alchemy"] = {

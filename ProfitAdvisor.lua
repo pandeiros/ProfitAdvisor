@@ -11,16 +11,13 @@
 -- If for some reason your addon causes LoadAddon() to be called in the main chunk,
 -- OnInitialize will fire prematurely for your addon, so you'll need to take other measures
 -- to delay initializing AceDB since SavedVariables still won't be loaded.
-function PA:OnInitialize()
-    self.db = AceDB:New(PA_DB_NAME, DB_DEFAULTS, true)
+function ProfitAdvisor:OnInitialize()
+    self.db = AceDB:New(PA_DB_NAME, PA_DB_DEFAULTS, true)
 
     self.devmode = false;
 end
 
-function PA:InitCharDBData()
-end
-
---------------------------------------------------------------------------------------------
+----------------------------------------------------------
 -- -- Create our main table for this addon
 -- SimpleCombatHud = SimpleCombatHud or {};
 
@@ -47,11 +44,11 @@ end
 
 -- PA = AceAddon:NewAddon("PA", "AceEvent-3.0");
   
--- function PA:OnEnable()
+-- function ProfitAdvisor:OnEnable()
 --     AceConsole:Print(ChatFrame1, "Hello, World!")
 -- end
   
--- function PA:OnDisable()
+-- function ProfitAdvisor:OnDisable()
 --     ChatFrame1:AddMessage("DISABLE")
 -- end
 
@@ -80,12 +77,12 @@ end
 --     },
 -- }
 
--- function PA:SetConfig(info, input)
+-- function ProfitAdvisor:SetConfig(info, input)
 --     AceConsole:Print(ChatFrame1, input);
 --     myMessageVar = input
 -- end
 
--- function PA:GetConfig(info)
+-- function ProfitAdvisor:GetConfig(info)
 --     return myMessageVar
 -- end
 
@@ -98,7 +95,7 @@ end
 -- EventFrame:RegisterEvent("PLAYER_LOGIN")
 -- EventFrame:SetScript("OnEvent", function(self,event,...)
 -- 	if type(PA.db.char.LoginCount) ~= "number" then
---         PA:InitCharacterData();
+--         ProfitAdvisor:InitCharacterData();
 -- 		ChatFrame1:AddMessage("WhyHelloThar " .. UnitName("Player")..". I do believe this is the first time we've met. Nice to meet you!")
 --     else
 --         local LoginCount = PA.db.char.LoginCount;

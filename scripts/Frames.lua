@@ -59,10 +59,10 @@ function ConfigFrame:DrawOtherTab(container)
     container:AddChild(button);
 end
 
---------------------------------------------------------------
+----------------------------------------------------------
 
 -- General frames function
-Frames = PA:CreateObject("Frames");
+Frames = ProfitAdvisor:CreateObject("Frames");
 
 function Frames:OpenConfigFrame()
     ConfigFrame = AceGUI:Create("Frame");
@@ -76,7 +76,7 @@ function Frames:CloseConfigFrame()
     end
 end
 
---------------------------------------------------------------
+----------------------------------------------------------
 
 -- -- function that draws the widgets for the first tab
 -- local function DrawGroup1(container)

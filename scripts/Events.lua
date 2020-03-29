@@ -1,6 +1,6 @@
 -- #TODO Copyright here
 
-function PA:PlayerLogin()
+function ProfitAdvisor:PlayerLogin()
 	local loginCount = PA.db.char.loginCount;
 	if loginCount == 0 then
 		self:Printf("Hello there, %s! I do believe this is the first time we've met. Nice to meet you!", GetColorStr(self.db.profile.style.accentColor, UnitName("Player")));
@@ -15,8 +15,8 @@ end
 
 function PA.ToolTipHook(tooltip)
 	local name, link = tooltip:GetItem();	-- = "|cffffffff|Hitem:4592::::::::12:::::::|h[Longjaw Mud Snapper]|h|r
-	PA:Print(test{10});
-	PA:Print(name .. ", " .. link .. "(" .. GetItemIDFromLink(link) .. ")");
+	ProfitAdvisor:Print(test{10});
+	ProfitAdvisor:Print(name .. ", " .. link .. "(" .. GetItemIDFromLink(link) .. ")");
 	tooltip:AddLine("Profit Advisor", HEXToRGB(PA.db.profile.style.accentColor));
 	SetTooltipMoney(tooltip, 12345, "STATIC", GetColorStr(PA.db.profile.style.accentColor, "Best deal:"), "");
 

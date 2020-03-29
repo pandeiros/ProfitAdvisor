@@ -1,6 +1,17 @@
 -- #TODO Copyright here
 
-local ITEM_PHASE = {
+local ProfitAdvisor = _G.ProfitAdvisor;
+local Phase = {};
+ProfitAdvisor.Data.Phase = Phase;
+
+local ItemPhases = {
+	[0]		= 0,
+	[1]		= 1,
+	[2]		= 2,
+	[3]		= 3,
+	[4] 	= 4,
+	[5]		= 5,
+	[6]		= 6,
 	[17061] = 5,
  	[19570] = 4,
  	[19571] = 4,
@@ -1550,24 +1561,16 @@ local ITEM_PHASE = {
  	[24222] = 6
 }
 
-ITEM_PHASE[0] = 0;
+-- Phase-related functions
 
-function ContentPhase:GetForItemID(itemID)
-    return PHASE_ITEMS[itemID or 0], self:IsActive(PHASE_ITEMS[itemID or 0])
+function Phase:GetCurrentPhase()
+    return PA_CURRENT_PHASE;
 end
 
-function ContentPhase:GetPhaseTexture(phase)
-    return PHASE_TEXTURE_PATH[phase], self:IsActive(phase)
+function Phase:GetPhaseForItemID(itemID)
+    return ItemPhases[itemID or 0];
 end
 
-function ContentPhase:GetPhaseTextureForItemID(itemID)
-    return PHASE_TEXTURE_PATH[PHASE_ITEMS[itemID or 0] or 0], self:IsActive(PHASE_ITEMS[itemID or 0])
-end
-
-function ContentPhase:GetActivePhase()
-    return ACTIVE_PHASE
-end
-
-function ContentPhase:IsActive(phase)
-    return (phase or 0) <= ACTIVE_PHASE
+function Phase:IsPhaseAvailable(phase)
+    return (phase or 0) <= PA_CURRENT_PHASE;
 end

@@ -61,15 +61,15 @@ AceConfig:RegisterOptionsTable(PA_ADDON_NAME, OptionsTable, {"pa", "profitadviso
 OptionsTable.args.profile = AceDBOptions:GetOptionsTable(PA_DB_NAME)
 
 -- Development mode
-function PA:GetDevModeEnabled()
+function ProfitAdvisor:GetDevModeEnabled()
     return (PA_DEV_MODE_ENABLED and not self:GetDevModeToggleHidden());
 end
 
-function PA:GetDevModeToggleHidden()
+function ProfitAdvisor:GetDevModeToggleHidden()
     return not self.devmode;
 end
 
-function PA:SetDevModeToggle(info, val)
+function ProfitAdvisor:SetDevModeToggle(info, val)
     if (not PA_DEV_MODE_ENABLED) then
         return
     end
@@ -78,12 +78,12 @@ function PA:SetDevModeToggle(info, val)
     self:Printf("Development mode %s.", ifte(val, "enabled", "disabled"));
 end
 
-function PA:GetDevModeToggle(info)
+function ProfitAdvisor:GetDevModeToggle(info)
     return self.devmode;
 end
 
 -- Reset
-function PA:ResetAllData(info)
+function ProfitAdvisor:ResetAllData(info)
     if (not self:GetDevModeEnabled()) then
         return
     end
@@ -97,24 +97,24 @@ function PA:ResetAllData(info)
 end
 
 -- Config
-function PA:OpenConfig(info)
+function ProfitAdvisor:OpenConfig(info)
     Frames:OpenConfigFrame()
 end
 
 -- Enable toggle
-function PA:SetEnableToggle(info, val)
+function ProfitAdvisor:SetEnableToggle(info, val)
     self.db.char.enabled = val;
     self:Printf("%s %s.", PA_ADDON_NAME, ifte(val, "enabled", "disabled"));
 end
 
-function PA:GetEnableToggle(info)
+function ProfitAdvisor:GetEnableToggle(info)
     return self.db.char.enabled;
 end
 
 -- Test
-function PA:TestCommand(info)
+function ProfitAdvisor:TestCommand(info)
     local name, type;
-    for i=1,GetNumTradeSkills() do
+    for i=1, GetNumTradeSkills() do
        name, type, _, _, _, _ = GetTradeSkillInfo(i);
     --    desc = GetTradeSkillDescription(i);
        if (name and type ~= "header") then
@@ -134,8 +134,7 @@ function PA:TestCommand(info)
        end
     end
 
-    ----
-
+----------------------------------------------------------
 
     -- for i=1,GetNumTradeSkills() do
     --     _, kind, _, open = GetTradeSkillInfo(i);
