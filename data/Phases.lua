@@ -1,10 +1,10 @@
 -- #TODO Copyright here
 
 local ProfitAdvisor = _G.ProfitAdvisor;
-local Phase = {};
-ProfitAdvisor.Data.Phase = Phase;
+local Phases = {};
+ProfitAdvisor.Data.Phases = Phases;
 
-local ItemPhases = {
+local ITEM_PHASES = {
 	[0]		= 0,
 	[1]		= 1,
 	[2]		= 2,
@@ -1563,14 +1563,14 @@ local ItemPhases = {
 
 -- Phase-related functions
 
-function Phase:GetCurrentPhase()
+function Phases:GetCurrentPhase()
     return PA_CURRENT_PHASE;
 end
 
-function Phase:GetPhaseForItemID(itemID)
-    return ItemPhases[itemID or 0];
+function Phases:GetPhaseForItemID(itemID)
+    return ITEM_PHASES[itemID or 0];
 end
 
-function Phase:IsPhaseAvailable(phase)
+function Phases:IsPhaseAvailable(phase)
     return (phase or 0) <= PA_CURRENT_PHASE;
 end

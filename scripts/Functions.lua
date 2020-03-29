@@ -1,5 +1,8 @@
 -- #TODO Copyright here
 
+local ProfitAdvisor = _G.ProfitAdvisor;
+local Colors = ProfitAdvisor.Style.Colors;
+
 ----------------------------------------------------------
 -- Logging helpers
 ----------------------------------------------------------
@@ -12,6 +15,22 @@ end
 -- Print formatted text to default tab.
 function ProfitAdvisor:Printf(format, ...)
     AceConsole:Printf(DEFAULT_CHAT_FRAME, format, ...);
+end
+
+-- Print welcome message after player login.
+function ProfitAdvisor:PrintWelcomeMessage()
+	local loginCount = self.db.char.loginCount;
+	local style = self.db.profile.style;
+
+	if loginCount == 0 then
+		self:Printf("Hello there, %s! I do believe this is the first time we've met. Nice to meet you!", Colors:GetColorStr(style.accentColor, UnitName("Player")));
+	elseif loginCount == 1 then
+		self:Printf("Hello there, %s! How nice to see you again. I do believe I've seen you %d time before.", Colors:GetColorStr(style.accentColor, UnitName("Player")), loginCount);
+	else
+		self:Printf("Hello there, %s! How nice to see you again. I do believe I've seen you %d times before.", Colors:GetColorStr(style.accentColor, UnitName("Player")), loginCount);
+	end
+
+	self.db.char.loginCount = self.db.char.loginCount + 1;
 end
 
 ----------------------------------------------------------
@@ -97,12 +116,4 @@ function GetAllData(t, prevData)
   
 	-- include the data from index into data, recursively, and return
 	return GetAllData(index, data)
-end
-
-----------------------------------------------------------
--- WoW API helpers
-----------------------------------------------------------
-
-function GetItemIDFromLink(link)
-    return string.match(link, '(%d+)');
 end

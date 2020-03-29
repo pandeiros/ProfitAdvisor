@@ -1,10 +1,28 @@
 -- #TODO Copyright here
 
--- Config frame
-ConfigFrame = AceGUI:Create("Frame");
-AceGUI:Release(ConfigFrame);
+local ProfitAdvisor = _G.ProfitAdvisor;
+local Colors = ProfitAdvisor.Style.Colors;
+local Data = ProfitAdvisor.Data;
 
-function ConfigFrame:Draw()
+local Frames = {};
+local Tooltip = {};
+PA_MainFrame = AceGUI:Create("Frame");
+
+ProfitAdvisor.Frames = Frames;
+ProfitAdvisor.Frames.Tooltip = Tooltip;
+ProfitAdvisor.Frames.MainFrame = PA_MainFrame;
+
+----------------------------------------------------------
+-- Main frame
+----------------------------------------------------------
+
+AceGUI:Release(PA_MainFrame);
+
+function PA_MainFrame:GetName()
+    return "ProfitAdvisor_MainFrame";
+end
+
+function PA_MainFrame:Draw()
     self:SetTitle("Profit Advisor");
     self:SetStatusText("");
     self:SetCallback("OnClose", function(widget) AceGUI:Release(widget) end);
@@ -19,13 +37,13 @@ end
 local function SelectGroup(container, event, group)
     container:ReleaseChildren();
     if group == "SettingsTab" then
-        ConfigFrame:DrawSettingsTab(container);
+        PA_MainFrame:DrawSettingsTab(container);
     elseif group == "OtherTab" then
-        ConfigFrame:DrawOtherTab(container);
+        PA_MainFrame:DrawOtherTab(container);
     end
 end
 
-function ConfigFrame:DrawTabs()
+function PA_MainFrame:DrawTabs()
     self.TabGroup = AceGUI:Create("TabGroup");
     self.TabGroup:SetLayout("Flow");
     self.TabGroup:SetTabs({
@@ -35,7 +53,7 @@ function ConfigFrame:DrawTabs()
     self.TabGroup:SelectTab("SettingsTab");
 end
 
-function ConfigFrame:DrawSettingsTab(container)
+function PA_MainFrame:DrawSettingsTab(container)
     local description = AceGUI:Create("Label");
     description:SetText("This is Settings Tab");
     description:SetFullWidth(true);
@@ -47,7 +65,7 @@ function ConfigFrame:DrawSettingsTab(container)
     container:AddChild(button);
 end
     
-function ConfigFrame:DrawOtherTab(container)
+function PA_MainFrame:DrawOtherTab(container)
     local description = AceGUI:Create("Label");
     description:SetText("This is Other Tab");
     description:SetFullWidth(true);
@@ -61,68 +79,48 @@ end
 
 ----------------------------------------------------------
 
--- General frames function
-Frames = ProfitAdvisor:CreateObject("Frames");
-
-function Frames:OpenConfigFrame()
-    ConfigFrame = AceGUI:Create("Frame");
-    table.insert(UISpecialFrames, "ConfigFrame");
-    ConfigFrame:Draw();
+function Frames:OpenMainFrame()
+    self.MainFrame = AceGUI:Create("Frame");
+    table.insert(UISpecialFrames, "PA_MainFrame");
+    self.MainFrame:Draw();
 end
 
-function Frames:CloseConfigFrame()
-    if (ConfigFrame) then
-        ConfigFrame:Release();
+function Frames:CloseMainFrame()
+    if (self.MainFrame) then
+        self.MainFrame:Release();
     end
 end
 
-----------------------------------------------------------
+function Frames:OpenConfigFrame()
+    -- self.ConfigFrame = AceGUI:Create("Frame");
+    -- table.insert(UISpecialFrames, "PA_ConfigFrame");
+    -- self.ConfigFrame:Draw();
+end
 
--- -- function that draws the widgets for the first tab
--- local function DrawGroup1(container)
---     local desc = AceGUI:Create("Label")
---     desc:SetText("This is Tab 1")
---     desc:SetFullWidth(true)
---     container:AddChild(desc)
-    
---     local button = AceGUI:Create("Button")
---     button:SetText("Tab 1 Button")
---     button:SetWidth(200)
---     container:AddChild(button)
--- end
-    
--- -- function that draws the widgets for the second tab
--- local function DrawGroup2(container)
---     local desc = AceGUI:Create("Label")
---     desc:SetText("This is Tab 2")
---     desc:SetFullWidth(true)
---     container:AddChild(desc)
-    
---     local button = AceGUI:Create("Button")
---     button:SetText("Tab 2 Button")
---     button:SetWidth(200)
---     container:AddChild(button)
--- end
-    
--- -- Callback function for OnGroupSelected
--- local function SelectGroup(container, event, group)
---     container:ReleaseChildren()
---     if group == "tab1" then
---         DrawGroup1(container)
---     elseif group == "tab2" then
---         DrawGroup2(container)
---     end
--- end
+function Frames:CloseMainFrame()
+    -- if (self.ConfigFrame) then
+    --     self.ConfigFrame:Release();
+    -- end
+end
 
--- -- Create the TabGroup
--- local tab =  AceGUI:Create("TabGroup")
--- tab:SetLayout("Flow")
--- -- Setup which tabs to show
--- tab:SetTabs({{text="Tab 1", value="tab1"}, {text="Tab 2", value="tab2"}})
--- -- Register callback
--- tab:SetCallback("OnGroupSelected", SelectGroup)
--- -- Set initial Tab (this will fire the OnGroupSelected callback)
--- tab:SelectTab("tab1")
+-----------------------------------------------------------
 
--- -- add to the frame container
--- ConfigFrame:AddChild(tab)
+function Tooltip:AddItemInfo(tooltip)
+    local style = ProfitAdvisor.db.profile.style;
+    
+    local name, link = tooltip:GetItem();
+    local itemID = Data:GetItemIDFromLink(link);
+    local linesToShow = Data:PrepareTooltipData(itemID);
+
+
+    local vendorPrice = Data:GetItemVendorPrice(itemID);
+
+    local bShouldShowInfo = (vendorPrice > 0);
+    if (bShouldShowInfo) then
+        tooltip:AddLine(" ", Colors:HEXToRGB(style.mainColor));
+        tooltip:AddLine(PA_ADDON_NAME, Colors:HEXToRGB(style.mainColor));
+        if (vendorPrice > 0) then
+            SetTooltipMoney(tooltip, vendorPrice, "STATIC", Colors:GetColorStr(style.accentColor, "Vendor price:"), "");
+        end    
+    end
+end

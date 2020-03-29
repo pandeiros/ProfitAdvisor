@@ -15,3 +15,4 @@ _G.ProfitAdvisor = AceAddon:NewAddon("ProfitAdvisor", "AceEvent-3.0");
 -- Main objects
 _G.ProfitAdvisor.Data = {};
 _G.ProfitAdvisor.Locale = {};
+_G.ProfitAdvisor.Style = {};

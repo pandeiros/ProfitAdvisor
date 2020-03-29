@@ -1,12 +1,16 @@
 -- #TODO Copyright here
 
+local ProfitAdvisor = _G.ProfitAdvisor;
+
+local Frames = ProfitAdvisor.Frames;
+
 -- #TODO Options to implement
 -- - [y/n] Include recipes from future phases
 -----------------------------
 
-OptionsTable = {
+local OptionsTable = {
     name = PA_ADDON_NAME,
-    handler = PA,
+    handler = ProfitAdvisor,
     type = 'group',
     args = {
         devmode = {
@@ -35,14 +39,14 @@ OptionsTable = {
             guiHidden = true,
             type = 'execute',
             name = 'Profit Advisor config',
-            desc = 'Open PA configuration window',
+            desc = 'Open Profit Advisor configuration window',
             func = 'OpenConfig',
         },
 
         toggle = {
             type = "toggle",
             name = "Enable/Disable toggle",
-            desc = "Enable/disable the PA addon",
+            desc = "Enable/disable the Profit Advisor addon",
             set = "SetEnableToggle",
             get = "GetEnableToggle",
         },
@@ -98,7 +102,8 @@ end
 
 -- Config
 function ProfitAdvisor:OpenConfig(info)
-    Frames:OpenConfigFrame()
+    -- Frames:OpenConfigFrame();
+    Frames:OpenMainFrame();
 end
 
 -- Enable toggle
@@ -133,54 +138,4 @@ function ProfitAdvisor:TestCommand(info)
         end
        end
     end
-
-----------------------------------------------------------
-
-    -- for i=1,GetNumTradeSkills() do
-    --     _, kind, _, open = GetTradeSkillInfo(i);
-    --     if (kind ~= "header") then
-    --         item = GetTradeSkillItemLink(i);
-            
-    --         minMade, maxMade = GetTradeSkillNumMade(i);
-    --         itemRecipe = GetTradeSkillRecipeLink(i);
-    --         if item then
-    --             -- _, item = GuildAds_ExplodeItemRef(item);
-    --             -- tmp[item]=true;
-    --             -- don't share cooldown, causes too much update
-    --             --[[
-    --             cooldown = GetTradeSkillCooldown(i) 
-    --             if cooldown then
-    --                 cooldown = cooldown / 60 + GuildAdsDB:GetCurrentTime();
-    --             end;
-    --             ]]
-    --             -- _, itemRecipe = GuildAds_ExplodeItemRef(itemRecipe);
-    --             q=nil;
-    --             if minMade~=1 or maxMade~=1 then
-    --                 q=tostring(minMade);
-    --                 if maxMade~=minMade then
-    --                     q=q.."-"..tostring(maxMade);
-    --                 end
-    --             end
-                
-    --             -- if not (t[item] and t[item].e and t[item].q) then
-    --             -- if not (t[item]) then
-    --             --     self:set(GuildAds.playerName, item, { s=skillId, e=itemRecipe, q=q });
-    --             --     added = added + 1
-    --             -- elseif not t[item].s then
-    --             --     t[item].s = skillId
-    --             -- end
-    --         end
-    --     -- else
-    --     --     fullListShown = fullListShown and open
-    --     end
-    -- end
-
-    ----
-
-    -- local recipeIDs = C_TradeSkillUI.GetAllRecipeIDs();
-    -- local recipeInfo = {};
-    -- for idx = 1, #recipeIDs do
-    --     C_TradeSkillUI.GetRecipeInfo(recipeIDs[idx], recipeInfo);
-    --     print(recipeInfo.recipeID, recipeInfo.name);
-    -- end
 end

@@ -1,5 +1,7 @@
 -- #TODO Copyright here
 
+local ProfitAdvisor = _G.ProfitAdvisor;
+
 -- Dev mode
 PA_DEV_MODE_ENABLED = true;
 
