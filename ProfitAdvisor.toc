@@ -1,0 +1,27 @@
+
+## Interface: 11304
+## X-Min-Interface: 11304
+## Title: |cffff7d0aProfit Advisor|r
+## Notes: Finds best deals for your goods.
+## Dependencies:
+## OptionalDependencies:
+## SavedVariables: ProfitAdvisorMinimapIcon, ProfitAdvisorDB
+## SavedVariablesPerCharacter: ProfitAdvisorCharacterDB
+## LoadOnDemand: 0
+## DefaultState: enabled
+## Author: Pandeiros
+## Version: 1.0
+
+embeds.xm
+
+data/Phases.lua
+
+PA_Styles.lua
+PA_Config.lua
+PA_Data.lua
+PA_Functions.lua
+PA_Frames.lua
+PA_Options.lua
+PA_Events.lua
+
+ProfitAdvisor.lua
