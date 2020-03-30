@@ -110,7 +110,9 @@ function Tooltip:AddItemInfo(tooltip)
     
     local name, link = tooltip:GetItem();
     local itemID = Data:GetItemIDFromLink(link);
-    local linesToShow = Data:PrepareTooltipData(itemID);
+    local itemData = Data:PrepareTooltipData(itemID);
+
+    self:PrintItemData(itemData, 0);
 
 
     local vendorPrice = Data:GetItemVendorPrice(itemID);
@@ -122,5 +124,18 @@ function Tooltip:AddItemInfo(tooltip)
         if (vendorPrice > 0) then
             SetTooltipMoney(tooltip, vendorPrice, "STATIC", Colors:GetColorStr(style.accentColor, "Vendor price:"), "");
         end    
+    end
+end
+
+function Tooltip:PrintItemData(itemData, indent)
+    if (not itemData.itemID) then
+        return;
+    end
+    
+    local itemName = GetItemInfo(itemData.itemID);
+    ProfitAdvisor:Printf("%s%s (%d):", string.rep(" ", indent * 4), itemName, itemData.itemID);
+    ProfitAdvisor:Printf("%s- Vendor price: %d, AH price: %d", string.rep(" ", indent * 4), itemData.vendorPrice, 123);
+    for k,v in pairs(itemData.reagentFor) do
+        self:PrintItemData(v, indent + 1);
     end
 end

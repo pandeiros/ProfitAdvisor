@@ -2183,7 +2183,48 @@ local RECIPE_DATA = {
 
 -- Returns true, if given spellID refers to a profession spell.
 function Professions:CheckSpellID(spellID)
-    return PROFESSIONS[spellID or 0] and true or false;
+    return PROFESSION_DATA[spellID or 0] and true or false;
+end
+
+-- Returns item ID of item created for a given data row.
+function Professions:GetCraftedItemIDForEntry(dataEntry)
+	return dataEntry[1];
+end
+
+-- Returns number of crafted items for a given data row.
+function Professions:GetCraftedItemCountForEntry(dataEntry)
+	return dataEntry[3];
+end
+
+-- Returns reagent data for a given data row.
+function Professions:GetReagentsForEntry(dataEntry)
+	return dataEntry[5], dataEntry[6];
+end
+
+-- Returns all item IDs that require given itemID as reagent, number of required
+-- reagents and number of crafted items for that skill.
+function Professions:FindItemsForReagent(itemID)
+	local items = {};
+	local numNeeded = {};
+	local numCrafted = {};
+
+	for k,v in pairs(PROFESSION_DATA) do
+		local craftedItemID = self:GetCraftedItemIDForEntry(v);
+		local reagents, regeantCount = self:GetReagentsForEntry(v);
+		local craftedCount = self:GetCraftedItemCountForEntry(v);
+		if (table.getn(reagents) > 0) then
+			for i2,v2 in ipairs(reagents) do
+				-- if (tonumber(itemID) == tonumber(v2)) then
+				if (itemID == v2) then
+					table.insert(items, craftedItemID);
+					table.insert(numNeeded, regeantCount[i2]);
+					table.insert(numCrafted, craftedCount);
+				end
+			end
+		end
+	end
+
+	return items, numNeeded, numCrafted;
 end
 
 -- Returns true, if given itemID refers to a recipe item.

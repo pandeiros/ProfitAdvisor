@@ -7,6 +7,9 @@
 -- *                                                      *
 -- ********************************************************
 
+-- TODO
+-- * Some items are crafted in random quantity. Example: Coarse Dynamite creates 1-3 pieces. Need to check professions for that kind of items and fix data.
+
 local ProfitAdvisor = _G.ProfitAdvisor;
 
 -- Also, a brief note for more advanced authors: 
