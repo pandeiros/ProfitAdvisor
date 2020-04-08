@@ -58,6 +58,14 @@ local OptionsTable = {
             desc = 'Test command',
             func = 'TestCommand',
         },
+
+        scan = {
+            guiHidden = true,
+            type = "execute",
+            name = "AH Scan",
+            desc = "Scan Auction House database.",
+            func = "ScanCommand",
+        }
     },
 }
 
@@ -118,24 +126,43 @@ end
 
 -- Test
 function ProfitAdvisor:TestCommand(info)
-    local name, type;
-    for i=1, GetNumTradeSkills() do
-       name, type, _, _, _, _ = GetTradeSkillInfo(i);
-    --    desc = GetTradeSkillDescription(i);
-       if (name and type ~= "header") then
-          DEFAULT_CHAT_FRAME:AddMessage("Found: "..name);
-          
-        local numReagents = GetTradeSkillNumReagents(i);
-        local totalReagents = 0;
-        for k=1, numReagents, 1 do
-            local reagentName, reagentTexture, reagentCount, playerReagentCount = GetTradeSkillReagentInfo(i, k);
-            totalReagents = totalReagents + reagentCount;
-            if (reagentName ~= nil) then
-                DEFAULT_CHAT_FRAME:AddMessage("- " .. reagentName);
-                -- local sName, sLink, iRarity, iLevel, iMinLevel, sType, sSubType, iStackCount = GetItemInfo(reagentName);
-                -- message(sName..","..iRarity..","..sType);    
-            end
+    local numBatchAuctions, totalAuctions = GetNumAuctionItems("list");
+    ProfitAdvisor:Printf("%d - %d", numBatchAuctions or 0, totalAuctions or 0);
+    for i=1,numBatchAuctions do 
+        local values = { GetAuctionItemInfo("list", i); }
+        name = values[1]
+        if (i % 1000 == 0) then
+            ProfitAdvisor:Print(name);
         end
-       end
+    end       
+
+    -- local name, type;
+    -- for i=1, GetNumTradeSkills() do
+    --    name, type, _, _, _, _ = GetTradeSkillInfo(i);
+    --    if (name and type ~= "header") then
+    --       DEFAULT_CHAT_FRAME:AddMessage("Found: "..name);
+          
+    --     local numReagents = GetTradeSkillNumReagents(i);
+    --     local totalReagents = 0;
+    --     for k=1, numReagents, 1 do
+    --         local reagentName, reagentTexture, reagentCount, playerReagentCount = GetTradeSkillReagentInfo(i, k);
+    --         totalReagents = totalReagents + reagentCount;
+    --         if (reagentName ~= nil) then
+    --             DEFAULT_CHAT_FRAME:AddMessage("- " .. reagentName);
+    --             -- local sName, sLink, iRarity, iLevel, iMinLevel, sType, sSubType, iStackCount = GetItemInfo(reagentName);
+    --             -- message(sName..","..iRarity..","..sType);    
+    --         end
+    --     end
+    --    end
+    -- end
+end
+
+-- Scan
+function ProfitAdvisor:ScanCommand(info)
+    canQuery,canQueryAll = CanSendAuctionQuery();
+    if (canQueryAll) then
+        QueryAuctionItems(nil, nil, nil, 0, nil, nil, true);
+    else
+        ProfitAdvisor:Print("CanSendAuctionQuery returned false.");
     end
 end

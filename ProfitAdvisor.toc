@@ -49,6 +49,7 @@ locales/Locales.lua
 
 data/Phases.lua
 data/Professions.lua
+data/Auctions.lua
 
 scripts/Styles.lua
 scripts/Data.lua

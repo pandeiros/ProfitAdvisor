@@ -55,12 +55,12 @@ function Data:GetItemVendorPrice(itemID)
     return itemSellPrice;
 end
 
-function Data:GetItemAHData(itemID)
+function Data:GetItemAuctionData(itemID)
     return {};
 end
 
 function Data:PrepareTooltipData(itemID)
-    local baseEntry = Data:ConstructTooltipEntry(nil, itemID, self:GetItemVendorPrice(itemID), self:GetItemAHData(itemID), 0, 0);
+    local baseEntry = Data:ConstructTooltipEntry(nil, itemID, self:GetItemVendorPrice(itemID), self:GetItemAuctionData(itemID), 0, 0);
 
     self:PrepareEntriesForItem(itemID, baseEntry);
     return baseEntry;
@@ -69,9 +69,9 @@ end
 function Data:PrepareEntriesForItem(itemID, parentEntry)
     -- 1. Get vendor and AH data for given item.
     -- if (parentEntry == nil or table.getn(parentEntry) <= 0) then
-    --     parentEntry = Data:ConstructTooltipEntry(nil, itemID, self:GetItemVendorPrice(itemID), self:GetItemAHData(itemID), 0, 0);
+    --     parentEntry = Data:ConstructTooltipEntry(nil, itemID, self:GetItemVendorPrice(itemID), self:GetItemAuctionData(itemID), 0, 0);
     -- end -- else
-        --Data:ConstructTooltipEntry(parentEntry, self:GetItemVendorPrice(itemID), self:GetItemAHData(itemID));
+        --Data:ConstructTooltipEntry(parentEntry, self:GetItemVendorPrice(itemID), self:GetItemAuctionData(itemID));
     -- end
 
     -- 2. Get all itemIDs (also required quantity and number of items crafted) given item is a reagent for.
@@ -80,7 +80,7 @@ function Data:PrepareEntriesForItem(itemID, parentEntry)
     if (table.getn(reagentFor) > 0) then
         for i,v in ipairs(reagentFor) do
             local reagentID = tonumber(v);
-            self:ConstructTooltipEntry(parentEntry, reagentID, self:GetItemVendorPrice(reagentID), self:GetItemAHData(reagentID), reagentCount[i], craftedCount[i]);
+            self:ConstructTooltipEntry(parentEntry, reagentID, self:GetItemVendorPrice(reagentID), self:GetItemAuctionData(reagentID), reagentCount[i], craftedCount[i]);
             self:PrepareEntriesForItem(reagentID, parentEntry.reagentFor[getn(parentEntry.reagentFor)]);
         end
     end
