@@ -2181,6 +2181,35 @@ local RECIPE_DATA = {
 	[14505]	=	{	11,		300,  	18450   },
 }
 
+local PROFESSION_ICONS = {
+	"|TInterface\\Icons\\Trade_Alchemy:0|t",
+	"|TInterface\\Icons\\Trade_BlackSmithing:0|t",
+	"|TInterface\\Icons\\INV_Misc_Food_15:0|t",
+	"|TInterface\\Icons\\Trade_Engraving:0|t",
+	"|TInterface\\Icons\\Trade_Engineering:0|t",
+	"|TInterface\\Icons\\spell_holy_sealofsacrifice:0|t",
+	"|TInterface\\Icons\\Trade_Fishing:0|t",
+	"|TInterface\\Icons\\Trade_Herbalism:0|t",
+	"|TInterface\\Icons\\Trade_Mining:0|t",
+	"|TInterface\\Icons\\INV_Misc_ArmorKit_17:0|t",
+	"|TInterface\\Icons\\inv_misc_pelt_wolf_01:0|t",
+	"|TInterface\\Icons\\Trade_Tailoring:0|t",
+}
+
+local PROFESSION_NAMES = {
+    [0]  = GL["Alchemy"],
+    [1]  = GL["Blacksmithing"],
+    [2]  = GL["Cooking"],
+    [3]  = GL["Enchanting"],
+    [4]  = GL["Engineering"],
+    [5]  = GL["First Aid"],
+    [6]  = GL["Fishing"],
+    [7]  = GL["Herbalism"],
+    [8]  = GL["Mining"],
+    [9]  = GL["Leatherworking"],
+    [10] = GL["Skinning"],
+    [11] = GL["Tailoring"],
+}
 -- Returns true, if given spellID refers to a profession spell.
 function Professions:CheckSpellID(spellID)
     return PROFESSION_DATA[spellID or 0] and true or false;
@@ -2214,7 +2243,6 @@ function Professions:FindItemsForReagent(itemID)
 		local craftedCount = self:GetCraftedItemCountForEntry(v);
 		if (table.getn(reagents) > 0) then
 			for i2,v2 in ipairs(reagents) do
-				-- if (tonumber(itemID) == tonumber(v2)) then
 				if (itemID == v2) then
 					table.insert(items, craftedItemID);
 					table.insert(numNeeded, regeantCount[i2]);
@@ -2226,6 +2254,12 @@ function Professions:FindItemsForReagent(itemID)
 
 	return items, numNeeded, numCrafted;
 end
+
+function Professions:GetProfessionIcon(professionID)
+	return PROFESSION_ICONS[professionID + 1];
+end
+
+---------------------------------------------------------------
 
 -- Returns true, if given itemID refers to a recipe item.
 function Recipes:CheckItemID(itemID)

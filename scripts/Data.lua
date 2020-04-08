@@ -3,6 +3,7 @@
 local ProfitAdvisor = _G.ProfitAdvisor;
 local Data = ProfitAdvisor.Data;
 local Style = ProfitAdvisor.Style;
+local Colors = Style.Colors;
 local Professions = ProfitAdvisor.Data.Professions;
 
 -- Database defaults
@@ -17,6 +18,30 @@ PA_DB_DEFAULTS = {
         loginCount = 0,
     }
 }
+
+local COIN_TEXTURES = {
+    "|TInterface\\Moneyframe\\UI-GoldIcon:0:0:4:0|t",
+    "|TInterface\\Moneyframe\\UI-SilverIcon:0:0:4:0|t",
+    "|TInterface\\Moneyframe\\UI-CopperIcon:0:0:4:0|t"
+}
+
+-- coinType: 1 - gold, 2 - silver, 3 - copper
+function Data:GetCoinTextureWithValue(value, coinType)
+    if (value > 0) then
+        return Colors:GetColorStr(COLOR_WHITE, tostring(value)) .. COIN_TEXTURES[coinType] .. "  ";
+    else
+        return "";
+    end
+end
+function Data:GetMoneyValueWithTextures(price)
+    local copper = price % 100;
+    price = math.floor(price/100);
+    local silver = price % 100;
+    price = math.floor(price/100);
+    local gold = price % 100;
+
+    return self:GetCoinTextureWithValue(gold, 1) .. self:GetCoinTextureWithValue(silver, 2) .. self:GetCoinTextureWithValue(copper, 3);
+end
 
 function Data:GetItemIDFromLink(link)
     -- example: |cffffffff|Hitem:4592::::::::12:::::::|h[Longjaw Mud Snapper]|h|r
